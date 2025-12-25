@@ -4,7 +4,7 @@
 A simple JavaScript-based to-do list application to manage daily tasks.
 
  🔗 Live Demo
-https://tanishanagwani14.github.io/todo-list-app/
+https://tanishanagwani14.github.io/Todo-List-App/
 
  🛠️ Tech Stack
 - HTML
