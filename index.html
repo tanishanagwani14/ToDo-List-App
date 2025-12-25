@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI To-Do List</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .app {
+    background: #1f2933;
+    width: 360px;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .ai-text {
+    text-align: center;
+    font-size: 13px;
+    color: #7dd3fc;
+    margin-bottom: 20px;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #38bdf8;
+    color: #000;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 15px;
+  }
+
+  button:hover {
+    background: #0ea5e9;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    background: #111827;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+  }
+
+  li.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+
+  .actions span {
+    cursor: pointer;
+    margin-left: 10px;
+  }
+
+  .ai-box {
+    background: #020617;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 13px;
+    margin-top: 15px;
+    color: #a5f3fc;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(5px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+</style>
+</head>
+
+<body>
+
+<div class="app">
+  <h2>🤖 AI To-Do List</h2>
+  <div class="ai-text">Smart task assistant enabled</div>
+
+  <input id="taskInput" placeholder="What do you want to do today?">
+  <button onclick="addTask()">Add Task</button>
+
+  <ul id="taskList"></ul>
+
+  <div class="ai-box" id="aiSuggestion">
+    💡 AI Tip: Add tasks like “study”, “exercise”, or “project work”
+  </div>
+</div>
+
+<script>
+const input = document.getElementById("taskInput");
+const list = document.getElementById("taskList");
+const aiBox = document.getElementById("aiSuggestion");
+
+function addTask() {
+  if (input.value.trim() === "") return;
+
+  const li = document.createElement("li");
+  li.innerHTML = `
+    <span onclick="toggleTask(this)">${input.value}</span>
+    <div class="actions">
+      <span onclick="deleteTask(this)">❌</span>
+    </div>
+  `;
+
+  list.appendChild(li);
+  generateAISuggestion(input.value);
+  input.value = "";
+}
+
+function toggleTask(el) {
+  el.parentElement.classList.toggle("completed");
+}
+
+function deleteTask(el) {
+  el.parentElement.parentElement.remove();
+}
+
+function generateAISuggestion(task) {
+  let suggestion = "💡 AI Tip: Stay consistent for better productivity";
+
+  if (task.toLowerCase().includes("study")) {
+    suggestion = "📘 AI Suggestion: Study in 25-minute focus sessions (Pomodoro)";
+  } else if (task.toLowerCase().includes("gym") || task.toLowerCase().includes("exercise")) {
+    suggestion = "💪 AI Suggestion: Don’t forget to stretch after workout";
+  } else if (task.toLowerCase().includes("project")) {
+    suggestion = "🧠 AI Suggestion: Break the project into small tasks";
+  }
+
+  aiBox.innerText = suggestion;
+}
+</script>
+
+</body>
+</html>
